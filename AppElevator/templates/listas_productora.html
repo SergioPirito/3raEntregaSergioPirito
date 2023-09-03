@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listas de Productoras</title>
+    <style>
+        .productora-nombre {
+            color: blue;
+        }
+    </style>
+</head>
+<body>
+    <h1>Listas de Productoras</h1>
+    <ul>
+        {% for productora in listas_productora %}
+            <li class="productora-nombre">{{ productora.nombre }}</li>
+            <li>{{ productora.pag_web }}</li>
+            <li>{{ productora.pais }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
