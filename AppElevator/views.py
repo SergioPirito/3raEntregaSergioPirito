@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import Proyecto, productora_audiovisual, autor, productor
+from .models import Proyecto, productora_audiovisual, autor, productor 
 
 # Create your views here.
 
@@ -36,6 +36,8 @@ def lista_productor(request):
     listas_productor = productor.objects.all()
     return render(request, 'listas_productor.html', {"listas_productor": listas_productor})
 
+
+
 def lista_proyecto(request):
     listas_proyecto = Proyecto.objects.all()
     return render(request, 'listas_proyecto.html', {"listas_proyecto": listas_proyecto})
@@ -47,3 +49,19 @@ def lista_productora(request):
 def lista_autor(request):
     listas_autor = autor.objects.all()
     return render(request, 'listas_autor.html', {"listas_autor": listas_autor})
+
+
+def inicio (request):
+    return render (request,'inicio.html')
+
+def vista_autor (request):
+    return render (request,'listas_autor.html')
+
+def vista_productor (request):
+    return render (request,'listas_productor.html')
+
+def vista_productora (request):
+    return render (request, 'listas_productora.html')
+
+def vista_proyecto (request):
+    return render (request,'listas_proyecto.html')
