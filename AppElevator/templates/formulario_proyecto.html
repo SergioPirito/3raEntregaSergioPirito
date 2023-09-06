@@ -1,14 +1,23 @@
+<style>
+    form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+</style>
+
 {% extends 'padre.html' %}
 
-        {% block contenidoQueCambia %}
-        <h1>Sección Formulario Proyectos</h1>
-    <form action="" method ="post">
-    <p> Nombre: <input type="text"name="Nombre"></p>
-    <p> Logline: <input type="text"name="Logline"></p>
-    <p> Plot: <input type="text"name="Plot"></p>
-    <p> Genero: <input type="text"name="Genero"></p>
-    </form>
+{% block contenidoQueCambia %}
+<h1>Sección Formulario Proyectos</h1>
+<form action="{% url 'AppElevator:formularioProyecto' %}" method="post">{% csrf_token %}
+    <p>Nombre: <input type="text" name="nombre"></p>
+    <p>Logline: <input type="text" name="logline"></p>
+    <p>Plot: <input type="text" name="plot"></p>
+    <p>Genero: <input type="text" name="genero"></p>
+    <button type="submit">Enviar</button>
+</form>
 
-    <a class="navbar-brand" href="/App-Elevator/">Regresar</a>
-   
-    {% endblock contenidoQueCambia %}
+<a class="btn btn-primary" href="/App-Elevator/">Regresar</a>
+
+{% endblock contenidoQueCambia %}

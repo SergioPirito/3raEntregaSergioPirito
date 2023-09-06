@@ -1,8 +1,20 @@
+<style>
+    .contenidoQueCambia {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+</style>
+
 {% extends 'padre.html' %}
 
 {% block contenidoQueCambia %}
-<h1>  Página de Inicio              </h1>
-
-<h1>  Proyectos: Top 10             </h1>         
-<p> En esta sección se publicarán los 10 mejores proyectos </p>                          
+<div class="contenidoQueCambia">
+    <h1>Página de Inicio</h1>
+    <p> {{ mensaje }} </p>
+    <h3>Proximamente:</h3>
+    <p>En esta sección se publicarán los mejores 10 proyectos</p>
+    <h2>"Proyectos Top 10"</h2>
+</div>
 {% endblock contenidoQueCambia %}
+

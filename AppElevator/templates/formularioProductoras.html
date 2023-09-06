@@ -1,14 +1,23 @@
+<style>
+    form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+</style>
+
 {% extends 'padre.html' %}
 
-        {% block contenidoQueCambia %}
-        <h1>Sección Formulario Productora Audiovisual</h1>
-    <form action="" method ="post">
-    <p> Nombre: <input type="text"name="Nombre"></p>
-    <p> Pag_web: <input type="text"name="Pag_web"></p>
-    <p> Email: <input type="text"name="Email"></p>
-    <p> Pais: <input type="text"name="Pais"></p>
-    </form>
+{% block contenidoQueCambia %}
+<h1>Sección Formulario Productora Audiovisual</h1>
+<form action="{% url 'AppElevator:formularioProductoras' %}" method="post">{% csrf_token %}
+    <p> Nombre: <input type="text" name="nombre"></p>
+    <p> Pag_web: <input type="text" name="pag_web"></p>
+    <p> Email: <input type="email" name="email"></p>
+    <p> Pais: <input type="text" name="pais"></p>
+    <button type="submit">Enviar</button>
+</form>
 
-    <a class="navbar-brand" href="/App-Elevator/">Regresar</a>
-   
-    {% endblock contenidoQueCambia %}
+<a class="btn btn-primary" href="/App-Elevator/">Regresar</a>
+
+{% endblock contenidoQueCambia %}

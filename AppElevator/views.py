@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpRequest
 from .models import Proyecto, productora_audiovisual, autor, productor 
 
 # Create your views here.
@@ -68,15 +68,28 @@ def vista_proyecto (request):
 
 #Formularios
 
-def formulario_proyecto (request):
-    return render (request,'formulario_proyecto.html')
+def formulario_proyecto (request:HttpRequest ):
+    if request.method=='POST':
+        proyecto = Proyecto(nombre=request.POST["nombre"], logline=request.POST["logline"], plot=request.POST["plot"], genero=request.POST["genero"])
+        proyecto.save()
 
-def formulario_autores (request):
-    return render (request,'formulario_autores.html')
+    return render (request,'formulario_proyecto.html',{"mensaje":"Proyecto creado con éxito"})
 
-def formulario_productores (request):
-    return render (request,'formularioProductores.html')
+def formulario_autores (request:HttpRequest ):
+    if request.method=='POST':
+        Autor = autor(nombre=request.POST["nombre"], apellido=request.POST["apellido"] , edad=request.POST["edad"], email=request.POST["email"], pais=request.POST["pais"])
+        Autor.save()    
+    return render (request,'formulario_autores.html',{"mensaje":"Autor creado con éxito"})
 
-def formulario_productoras (request):
-    return render (request,'formularioProductoras.html')
+def formulario_productores (request:HttpRequest ):
+    if request.method=='POST':
+        Productor = productor(nombre=request.POST["nombre"], apellido=request.POST["apellido"], edad=request.POST["edad"], email=request.POST["email"], pais=request.POST["pais"])
+        Productor.save()
+    return render (request,'formularioProductores.html',{"mensaje":"Productor creado con éxito"})
+
+def formulario_productoras (request:HttpRequest ):
+    if request.method=='POST':
+        productora = productora_audiovisual (nombre=request.POST["nombre"], pag_web=request.POST["pag_web"], email=request.POST["email"], pais=request.POST["pais"])
+        productora.save()
+    return render (request,'formularioProductoras.html',{"mensaje":"Productora Audiovisual creada con éxito"})
 
