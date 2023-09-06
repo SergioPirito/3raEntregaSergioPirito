@@ -65,3 +65,18 @@ def vista_productora (request):
 
 def vista_proyecto (request):
     return render (request,'listas_proyecto.html')
+
+#Formularios
+
+def formulario_proyecto (request):
+    return render (request,'formulario_proyecto.html')
+
+def formulario_autores (request):
+    return render (request,'formulario_autores.html')
+
+def formulario_productores (request):
+    return render (request,'formularioProductores.html')
+
+def formulario_productoras (request):
+    return render (request,'formularioProductoras.html')
+

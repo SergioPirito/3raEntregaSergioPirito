@@ -28,3 +28,4 @@ class Proyecto(models.Model):
     logline = models.CharField(max_length=1000)
     plot = models.CharField(max_length=5000)
     genero = models.CharField(max_length=50)
+  
