@@ -1,17 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Listas de Proyectos</title>
-</head>
-<body>
-    <h1>Listas de Proyectos</h1>
+{% extends 'padre.html' %}
+
+        {% block contenidoQueCambia %}
+        <h1>Sección Proyectos</h1>
     <ul>
         {% for proyecto in listas_proyecto %}
             <li>{{ proyecto.nombre }}</li>
             <li>{{ proyecto.genero }}</li>
         {% endfor %}
     </ul>
-</body>
-</html>
+
+    <a class="navbar-brand" href="/App-Elevator/">Regresar</a>
+   
+    {% endblock contenidoQueCambia %}

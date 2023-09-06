@@ -1,17 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Listas de Productoras</title>
-    <style>
-        .productora-nombre {
-            color: blue;
-        }
-    </style>
-</head>
-<body>
-    <h1>Listas de Productoras</h1>
+{% extends 'padre.html' %}
+
+        {% block contenidoQueCambia %}
+        <h1>  Sección Productoras Audiovisuales  </h1>   
+    
     <ul>
         {% for productora in listas_productora %}
             <li class="productora-nombre">{{ productora.nombre }}</li>
@@ -19,5 +10,7 @@
             <li>{{ productora.pais }}</li>
         {% endfor %}
     </ul>
-</body>
-</html>
+
+    <a class="navbar-brand" href="/App-Elevator/">Regresar</a>
+    
+    {% endblock contenidoQueCambia %}

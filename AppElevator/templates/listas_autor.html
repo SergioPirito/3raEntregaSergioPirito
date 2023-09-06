@@ -1,22 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>listas de Autores </title>
-</head>
-<body>
-    <h1>Listas de Autores</h1>
-    <ul>
+        {% extends 'padre.html' %}
 
+        {% block contenidoQueCambia %}
+        <h1> Sección Autores  </h1>  
         {% for autor in listas_autor %}
             <li>{{autor.nombre}}</li>
             <li>{{autor.apellido}}</li>
             <li>{{ autor.pais }}</li>
         {% endfor %}
     
-
-
-    </ul>
-</body>
-</html>
+        <a class="navbar-brand" href="/App-Elevator/">Regresar</a>
+        
+                                
+        {% endblock contenidoQueCambia %}

@@ -1,14 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>listas de productores </title>
-</head>
-<body>
-    <h1>Listas de Productores</h1>
-    <ul>
+{% extends 'padre.html' %}
 
+        {% block contenidoQueCambia %}
+        <h1>  Sección Productores  </h1>   
         {% for productor in listas_productor %}
             <li>{{productor.nombre}}</li>
             <li>{{productor.apellido}}</li>
@@ -16,7 +9,7 @@
         {% endfor %}
     
 
-
-    </ul>
-</body>
-</html>
+        <a class="navbar-brand" href="/App-Elevator/">Regresar</a>
+        
+                               
+        {% endblock contenidoQueCambia %}
