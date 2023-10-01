@@ -1,16 +1,38 @@
-<!-- Navigation-->
+<!-- Navigation -->
 <nav class="navbar navbar-light bg-light static-top">
     <div class="container">
-        <!--<a class="navbar-brand" href="/App-Elevator/">Start</a>-->
+        <a class="btn btn-danger" href="/App-Elevator/">Inicio</a>
         <a class="navbar-brand" href="/App-Elevator/lista-autor/">Authors</a>
         <a class="navbar-brand" href="/App-Elevator/lista-productor/">Producers</a>
         <a class="navbar-brand" href="/App-Elevator/lista-productora/">Film Production</a>
         <a class="navbar-brand" href="/App-Elevator/lista-proyecto/">Projects</a>
-        <a class="btn btn-primary" href="/App-Elevator/formulario-proyecto/">Proyects Forms</a>
-        <a class="btn btn-primary" href="/App-Elevator/formulario-autores/">Authors Forms</a>
-        <a class="btn btn-primary" href="/App-Elevator/formulario-productores/">Producers Forms</a>
-        <a class="btn btn-primary" href="/App-Elevator/formulario-productoras/">Film Production Forms</a>
+        
+        <div class="btn-group">
+            <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Altas
+            </button>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="/App-Elevator/formulario-proyecto/">Proyecto</a>
+                <a class="dropdown-item" href="/App-Elevator/formulario-autores/">Autor</a>
+                <a class="dropdown-item" href="/App-Elevator/formulario-productores/">Productor</a>
+                <a class="dropdown-item" href="/App-Elevator/formulario-productoras/">Productoras</a>
+            </div>
+        </div>
     </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const formsButton = document.querySelector(".btn-group .dropdown-toggle");
+            const dropdownMenu = document.querySelector(".btn-group .dropdown-menu");
+    
+            formsButton.addEventListener("click", function () {
+                dropdownMenu.classList.toggle("show");
+            });
+    
+            document.addEventListener("click", function (event) {
+                if (!dropdownMenu.contains(event.target) && !formsButton.contains(event.target)) {
+                    dropdownMenu.classList.remove("show");
+                }
+            });
+        });
+    </script>
 </nav>
-
-

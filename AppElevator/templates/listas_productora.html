@@ -1,16 +1,38 @@
-{% extends 'padre.html' %}
+{% extends 'page1.html' %}
 
-        {% block contenidoQueCambia %}
-        <h1>  Sección Productoras Audiovisuales  </h1>   
-    
-    <ul>
-        {% for productora in listas_productora %}
-            <li class="productora-nombre">{{ productora.nombre }}</li>
-            <li>{{ productora.pag_web }}</li>
-            <li>{{ productora.pais }}</li>
-        {% endfor %}
-    </ul>
+{% block contenidoQueCambia %}
+<h1>Sección Productoras Audiovisuales</h1>
 
-    <a class="btn btn-primary" href="/App-Elevator/">Regresar</a>
-    
-    {% endblock contenidoQueCambia %}
+<section class="listas_productora">
+    {% for productora in listas_productora %}
+    <div class="card" style="width: 18rem;">
+      <img src="https://i.pinimg.com/originals/9e/4f/0d/9e4f0dd9e22b76d04e632618100dbb55.jpg" class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">{{productora.nombre}}</h5> 
+        <p class="card-text">Página web: {{productora.pag_web}}</p>
+        <p class="card-text">País: {{productora.pais}}</p>
+
+        <a href="#" class="btn btn-primary">More about {{productora.nombre}}</a>
+      </div>
+    </div>
+    {% endfor %}
+</section>
+
+
+
+<div class="d-flex justify-content-center">
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            {% if listas_productora.has_previous %}
+            <li class="page-item"><a class="page-link" href="?page={{ listas_productora.previous_page_number }}">Previous</a></li>
+            {% endif %}
+            <li class="page-item"><a class="page-link" href="?page={{ listas_productora.number }}">{{ listas_productora.number }}</a></li>
+            {% if listas_productora.has_next %}
+            <li class="page-item"><a class="page-link" href="?page={{ listas_productora.next_page_number }}">Next</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+</div>
+
+{% endblock contenidoQueCambia %}
+

@@ -6,18 +6,15 @@
     }
 </style>
 
-{% extends 'padre.html' %}
+{% extends 'page1.html' %}
 
 {% block contenidoQueCambia %}
 <h1>Sección Formulario Proyectos</h1>
 <form action="{% url 'AppElevator:formularioProyecto' %}" method="post">{% csrf_token %}
-    <p>Nombre: <input type="text" name="nombre"></p>
-    <p>Logline: <input type="text" name="logline"></p>
-    <p>Plot: <input type="text" name="plot"></p>
-    <p>Genero: <input type="text" name="genero"></p>
+    {{ form.as_p }}
     <button type="submit">Enviar</button>
 </form>
 
-<a class="btn btn-primary" href="/App-Elevator/">Regresar</a>
+
 
 {% endblock contenidoQueCambia %}

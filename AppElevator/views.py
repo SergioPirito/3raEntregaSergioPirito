@@ -1,8 +1,17 @@
-from django.shortcuts import render
-from django.http import HttpResponse, HttpRequest
+from django.shortcuts import get_object_or_404, redirect, render
+from django.http import HttpResponse
+from .forms import ProyectoForm, AutorForm, ProductorForm, ProductoraForm
 from .models import Proyecto, productora_audiovisual, autor, productor 
+from django.core.paginator import Paginator
 
-# Create your views here.
+
+# Base de datos
+def proyecto_detalles(request, nombre):
+    encontrarProyectoPorNombre = Proyecto(nombre=nombre)
+
+    proyecto = get_object_or_404(Proyecto, nombre=encontrarProyectoPorNombre.nombre)
+    return render(request, 'proyecto_detalles.html', {'proyecto': proyecto})
+
 
 def proyecto_view(request, nombre, logline, plot, genero):
     proyecto = Proyecto(nombre=nombre, logline=logline, plot=plot, genero=genero)
@@ -32,24 +41,48 @@ def productor_view(request, nombre, apellido, edad, email, pais):
     return HttpResponse(f"""
 <p> Productor: {productor.nombre} {productor.apellido}, edad {productor.edad}, email {productor.email}, pais {productor.pais} Agregado con Exito!</p>""")
 
-def lista_productor(request):
-    listas_productor = productor.objects.all()
-    return render(request, 'listas_productor.html', {"listas_productor": listas_productor})
-
-
+# Listas
 
 def lista_proyecto(request):
-    listas_proyecto = Proyecto.objects.all()
-    return render(request, 'listas_proyecto.html', {"listas_proyecto": listas_proyecto})
+    listas_proyecto = Proyecto.objects.all().order_by('nombre')
+
+    paginator = Paginator(listas_proyecto, 5) 
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    return render(request, 'listas_proyecto.html', {"listas_proyecto": page_obj})
+
+def lista_productor(request):
+    listas_productor = productor.objects.all().order_by('nombre')
+
+    paginator = Paginator(listas_productor, 3) # Muestra 3 productores por página
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    return render(request, 'listas_productor.html', {"listas_productor": page_obj})
+
+
 
 def lista_productora(request):
-    listas_productora = productora_audiovisual.objects.all()
-    return render(request, 'listas_productora.html', {"listas_productora": listas_productora})
+    listas_productora = productora_audiovisual.objects.all().order_by('nombre')
+
+    paginator = Paginator(listas_productora, 3) # Muestra 3 productoras por página
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    return render(request, 'listas_productora.html', {"listas_productora": page_obj})
 
 def lista_autor(request):
-    listas_autor = autor.objects.all()
-    return render(request, 'listas_autor.html', {"listas_autor": listas_autor})
+    listas_autor = autor.objects.all().order_by('nombre')
 
+    paginator = Paginator(listas_autor, 3) # Muestra 3 autores por página
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    return render(request, 'listas_autor.html', {"listas_autor": page_obj})
+
+
+#Vistas
 
 def inicio (request):
     return render (request,'inicio.html')
@@ -68,28 +101,73 @@ def vista_proyecto (request):
 
 #Formularios
 
-def formulario_proyecto (request:HttpRequest ):
-    if request.method=='POST':
-        proyecto = Proyecto(nombre=request.POST["nombre"], logline=request.POST["logline"], plot=request.POST["plot"], genero=request.POST["genero"])
-        proyecto.save()
+def formulario_proyecto(request):
+    if request.method == 'POST':
+        form = ProyectoForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('AppElevator:lista_proyecto')
+    else:
+        form = ProyectoForm()
 
-    return render (request,'formulario_proyecto.html',{"mensaje":"Proyecto creado con éxito"})
+    return render(request, 'formulario_proyecto.html', {'form': form})
 
-def formulario_autores (request:HttpRequest ):
-    if request.method=='POST':
-        Autor = autor(nombre=request.POST["nombre"], apellido=request.POST["apellido"] , edad=request.POST["edad"], email=request.POST["email"], pais=request.POST["pais"])
-        Autor.save()    
-    return render (request,'formulario_autores.html',{"mensaje":"Autor creado con éxito"})
+def formulario_autores(request):
+    if request.method == 'POST':
+        form = AutorForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return render(request, 'formulario_autores.html', {"mensaje": "Autor creado con éxito"})
+    else:
+        form = AutorForm()
 
-def formulario_productores (request:HttpRequest ):
-    if request.method=='POST':
-        Productor = productor(nombre=request.POST["nombre"], apellido=request.POST["apellido"], edad=request.POST["edad"], email=request.POST["email"], pais=request.POST["pais"])
-        Productor.save()
-    return render (request,'formularioProductores.html',{"mensaje":"Productor creado con éxito"})
+    return render(request, 'formulario_autores.html', {'form': form})
 
-def formulario_productoras (request:HttpRequest ):
-    if request.method=='POST':
-        productora = productora_audiovisual (nombre=request.POST["nombre"], pag_web=request.POST["pag_web"], email=request.POST["email"], pais=request.POST["pais"])
-        productora.save()
-    return render (request,'formularioProductoras.html',{"mensaje":"Productora Audiovisual creada con éxito"})
+def formulario_productores(request):
+    if request.method == 'POST':
+        form = ProductorForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return render(request, 'formularioProductores.html', {"mensaje": "Productor creado con éxito"})
+    else:
+        form = ProductorForm()
+
+    return render(request, 'formularioProductores.html', {'form': form})
+
+def formulario_productoras(request):
+    if request.method == 'POST':
+        form = ProductoraForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return render(request, 'formularioProductoras.html', {"mensaje": "Productora Audiovisual creada con éxito"})
+    else:
+        form = ProductoraForm()
+
+    return render(request, 'formularioProductoras.html', {'form': form})
+
+
+def editar_proyecto(request, nombre):
+    proyecto = get_object_or_404(Proyecto, nombre=nombre)
+
+    if request.method == 'POST':
+        form = ProyectoForm(request.POST, instance=proyecto)
+        if form.is_valid():
+            form.save()
+            return render(request, 'formulario_proyecto.html', {"mensaje": "Proyecto editado con éxito"})
+    else:
+        form = ProyectoForm(instance=proyecto)
+
+    return render(request, 'formulario_proyecto.html', {'form': form})
+
+def eliminar_proyecto(request, nombre):
+    proyecto = get_object_or_404(Proyecto, nombre=nombre)
+
+    if request.method == 'POST':
+        proyecto.delete()
+        return redirect('AppElevator:lista_proyecto')
+    
+    return render(request, 'confirmar_eliminacion.html', {'proyecto': proyecto})
+
+
+
 

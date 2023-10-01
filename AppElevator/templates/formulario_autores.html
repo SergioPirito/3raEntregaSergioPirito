@@ -6,20 +6,16 @@
     }
 </style>
 
-{% extends 'padre.html' %}
+{% extends 'page1.html' %}
 
 {% block contenidoQueCambia %}
 <h1>Sección Formulario Autores</h1>
 <form action="{% url 'AppElevator:formularioAutores' %}" method="post">{% csrf_token %}
-    <p> Nombre: <input type="text" name="nombre"></p>
-    <p> Apellido: <input type="text" name="apellido"></p>
-    <p> Edad: <input type="text" name="edad"></p>
-    <p> Email: <input type="email" name="email"></p>
-    <p> Pais: <input type="text" name="pais"></p>
+    {{ form.as_p }}
     <button type="submit">Enviar</button>
 </form>
 
-<a class="btn btn-primary" href="/App-Elevator/">Regresar</a>
+
 
 {% endblock contenidoQueCambia %}
 

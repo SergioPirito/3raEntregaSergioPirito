@@ -1,0 +1,17 @@
+.listas_proyecto,
+.listas_productor,
+.listas_productora,
+.listas_autor {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    font-size: 0.75em;
+    row-gap: 20px;
+    align-content: center;
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+}
+
+      
+    
+  

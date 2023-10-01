@@ -1,15 +1,38 @@
-        
-        {% extends 'padre.html' %}
+{% extends 'page1.html' %}
 
-        {% block contenidoQueCambia %}
-        <h1> Sección Autores  </h1>  
-        {% for autor in listas_autor %}
-            <li>{{autor.nombre}}</li>
-            <li>{{autor.apellido}}</li>
-            <li>{{ autor.pais }}</li>
-        {% endfor %}
-    
-        <a class="btn btn-primary" href="/App-Elevator/">Regresar</a>
-        
-                                
-        {% endblock contenidoQueCambia %}
+{% block contenidoQueCambia %}
+<h1>Sección Autores</h1>
+
+<section class="listas_autor">
+    {% for autor in listas_autor %}
+    <div class="card" style="width: 18rem;">
+      <img src="https://i.pinimg.com/originals/9e/4f/0d/9e4f0dd9e22b76d04e632618100dbb55.jpg" class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">{{autor.nombre}} {{autor.apellido}}</h5> 
+        <p class="card-text">Edad: {{autor.edad}}</p>
+        <p class="card-text">Email: {{autor.email}}</p>
+        <p class="card-text">País: {{autor.pais}}</p>
+
+        <a href="#" class="btn btn-primary">More about {{autor.nombre}} {{autor.apellido}}</a>
+      </div>
+    </div>
+    {% endfor %}
+</section>
+
+
+
+<div class="d-flex justify-content-center">
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            {% if listas_autor.has_previous %}
+            <li class="page-item"><a class="page-link" href="?page={{ listas_autor.previous_page_number }}">Previous</a></li>
+            {% endif %}
+            <li class="page-item"><a class="page-link" href="?page={{ listas_autor.number }}">{{ listas_autor.number }}</a></li>
+            {% if listas_autor.has_next %}
+            <li class="page-item"><a class="page-link" href="?page={{ listas_autor.next_page_number }}">Next</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+</div>
+
+{% endblock contenidoQueCambia %}

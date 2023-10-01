@@ -1,15 +1,36 @@
-{% extends 'padre.html' %}
+{% extends 'page1.html' %}
 
-        {% block contenidoQueCambia %}
-        <h1>  Sección Productores  </h1>   
-        {% for productor in listas_productor %}
-            <li>{{productor.nombre}}</li>
-            <li>{{productor.apellido}}</li>
-            <li>{{ productor.pais }}</li>
-        {% endfor %}
-    
+{% block contenidoQueCambia %}
+<h1>Sección Productores</h1>
 
-        <a class="btn btn-primary" href="/App-Elevator/">Regresar</a>
-        
-                               
-        {% endblock contenidoQueCambia %}
+<section class="listas_productor">
+    {% for productor in listas_productor %}
+    <div class="card" style="width: 18rem;">
+      <img src="https://i.pinimg.com/originals/9e/4f/0d/9e4f0dd9e22b76d04e632618100dbb55.jpg" class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">{{productor.nombre}} {{productor.apellido}}</h5> 
+        <p class="card-text">País: {{productor.pais}}</p>
+
+        <a href="#" class="btn btn-primary">More about {{productor.nombre}} {{productor.apellido}}</a>
+      </div>
+    </div>
+    {% endfor %}
+</section>
+
+
+
+<div class="d-flex justify-content-center">
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            {% if listas_productor.has_previous %}
+            <li class="page-item"><a class="page-link" href="?page={{ listas_productor.previous_page_number }}">Previous</a></li>
+            {% endif %}
+            <li class="page-item"><a class="page-link" href="?page={{ listas_productor.number }}">{{ listas_productor.number }}</a></li>
+            {% if listas_productor.has_next %}
+            <li class="page-item"><a class="page-link" href="?page={{ listas_productor.next_page_number }}">Next</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+</div>
+
+{% endblock contenidoQueCambia %}

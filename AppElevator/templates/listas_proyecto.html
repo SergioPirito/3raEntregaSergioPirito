@@ -1,14 +1,36 @@
-{% extends 'padre.html' %}
+    {% extends 'page1.html' %}
 
-        {% block contenidoQueCambia %}
-        <h1>Sección Proyectos</h1>
-    <ul>
-        {% for proyecto in listas_proyecto %}
-            <li>{{ proyecto.nombre }}</li>
-            <li>{{ proyecto.genero }}</li>
-        {% endfor %}
-    </ul>
+{% block contenidoQueCambia %}
+<h1>Sección Proyectos</h1>
 
-    <a class="btn btn-primary" href="/App-Elevator/">Regresar</a>
-   
-    {% endblock contenidoQueCambia %}
+<section class="listas_proyecto">
+    {% for proyecto in listas_proyecto %}
+    <div class="card" style="width: 18rem;">
+      <img src="https://i.pinimg.com/originals/9e/4f/0d/9e4f0dd9e22b76d04e632618100dbb55.jpg" class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">{{proyecto.nombre}}</h5> 
+        <p class="card-text">{{proyecto.logline}}</p>
+        <p class="card-text">{{proyecto.genero}}</p>
+
+                      
+        <a href="/App-Elevator/proyecto-detalles/{{ proyecto.nombre }}/" class="btn btn-danger">More about {{ proyecto.nombre }}</a>
+    </div>
+    </div>
+    {% endfor %}
+</section>
+
+<div class="d-flex justify-content-center">
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            {% if listas_proyecto.has_previous %}
+            <li class="page-item"><a class="page-link" href="?page={{ listas_proyecto.previous_page_number }}">Previous</a></li>
+            {% endif %}
+            <li class="page-item"><a class="page-link" href="?page={{ listas_proyecto.number }}">{{ listas_proyecto.number }}</a></li>
+            {% if listas_proyecto.has_next %}
+            <li class="page-item"><a class="page-link" href="?page={{ listas_proyecto.next_page_number }}">Next</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+</div>
+
+{% endblock contenidoQueCambia %}

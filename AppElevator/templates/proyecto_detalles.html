@@ -1,0 +1,25 @@
+{% extends 'page1.html' %}
+
+{% block contenidoQueCambia %}
+<div style="text-align: center;">
+    <h1>Proyecto </h1>
+    <div class="card-body" style="width: 50%; margin: 0 auto; border: 1px solid #000; padding: 20px; border-radius: 10px;">
+        <h1 class="card-title">{{proyecto.nombre}}</h1> 
+        <p class="card-text">{{proyecto.logline}}</p>
+        <p class="card-text">{{proyecto.plot}}</p>
+        <p class="card-text">{{proyecto.genero}}</p>              
+    </div>
+
+    <!-- menu Crear Editar Borrar -->
+    
+        </button>
+        <div>
+            <a class="btn btn-danger" href="{% url 'AppElevator:formularioProyecto' %}">Nuevo Proyecto</a>
+            <a class="btn btn-warning" href="{% url 'AppElevator:editarProyecto' proyecto.nombre %}">Editar Proyecto</a>
+            <a class="btn btn-danger" href="{% url 'AppElevator:eliminarProyecto' proyecto.nombre %}">Eliminar Proyecto</a>
+           
+        </div>
+    </div>
+{% endblock contenidoQueCambia %}
+
+
