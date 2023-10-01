@@ -1,12 +1,24 @@
-<!-- Navigation -->
 <nav class="navbar navbar-light bg-light static-top">
     <div class="container">
-        <a class="btn btn-danger" href="/App-Elevator/">Inicio</a>
+        {% if user.is_authenticated %}
+    <div class="navbar">
+        {% if url %}
+            <img src="{{ url }}" height="30px" alt="avatar">
+        {% endif %}
+        <p>Bienvenido {{ user.username }}</p>
+    </div>
+{% else %}
+    <div class="navbar">
+        <a class="btn btn-danger" href="/App-Elevator/login">Login</a>
+    </div>
+{% endif %}
+        <a class="btn btn-danger" href="/App-Elevator/logout">Logout</a>
         <a class="navbar-brand" href="/App-Elevator/lista-autor/">Authors</a>
         <a class="navbar-brand" href="/App-Elevator/lista-productor/">Producers</a>
         <a class="navbar-brand" href="/App-Elevator/lista-productora/">Film Production</a>
         <a class="navbar-brand" href="/App-Elevator/lista-proyecto/">Projects</a>
-        
+        <a class="btn btn-danger" href="/App-Elevator/">Inicio</a>
+
         <div class="btn-group">
             <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Altas
@@ -23,11 +35,11 @@
         document.addEventListener("DOMContentLoaded", function () {
             const formsButton = document.querySelector(".btn-group .dropdown-toggle");
             const dropdownMenu = document.querySelector(".btn-group .dropdown-menu");
-    
+
             formsButton.addEventListener("click", function () {
                 dropdownMenu.classList.toggle("show");
             });
-    
+
             document.addEventListener("click", function (event) {
                 if (!dropdownMenu.contains(event.target) && !formsButton.contains(event.target)) {
                     dropdownMenu.classList.remove("show");

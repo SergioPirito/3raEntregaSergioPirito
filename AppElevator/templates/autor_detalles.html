@@ -1,0 +1,21 @@
+{% extends 'page1.html' %}
+
+{% block contenidoQueCambia %}
+<div style="text-align: center;">
+    <h1> Autor </h1>
+    <div class="card-body" style="width: 50%; margin: 0 auto; border: 1px solid #000; padding: 20px; border-radius: 10px;">
+        <h1 class="card-title">{{Autor.nombre}} {{Autor.apellido}}</h1> 
+        <p class="card-text">Edad: {{Autor.edad}}</p>
+        <p class="card-text">Lugar de nacimiento: {{Autor.pais}}</p>              
+    </div>    
+        <div>
+            {% comment %} <a class="btn btn-danger" href="{% url 'AppElevator:formularioAutor' %}">alta de autor</a> {% endcomment %}
+            {% comment %} <a class="btn btn-warning" href="{% url 'AppElevator:editarAutor' autor.nombre %}">Editar autor</a> {% endcomment %}
+            {% comment %} <a class="btn btn-danger" href="{% url 'AppElevator:eliminarAutor' autor.nombre %}">Eliminar </a> {% endcomment %}
+           
+        </div>
+    </div>
+{% endblock contenidoQueCambia %}
+
+
+

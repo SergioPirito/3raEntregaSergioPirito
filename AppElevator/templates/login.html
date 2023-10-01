@@ -1,0 +1,14 @@
+{% extends 'page1.html' %}
+
+{% block contenidoQueCambia %}
+    <h1>Página de Inicio</h1>
+
+
+    <form method="post">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button type="submit">Iniciar Sesión</button>
+    </form>
+  
+
+{% endblock contenidoQueCambia %}
