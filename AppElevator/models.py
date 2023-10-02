@@ -6,10 +6,10 @@ from django.contrib.auth.models import User
 
 
 
-# Modelo que representa a un autor.
+# Modelo que representa a un Autor.
 
 
-class autor(models.Model):
+class Autor(models.Model):
     nombre = models.CharField(max_length=30)
     apellido = models.CharField(max_length=50)
     edad = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(100)])
@@ -50,13 +50,13 @@ class productora_audiovisual (models.Model):
     
   
 
-# Modelo que representa a un proyecto.
+# Modelo que representa a un Proyecto.
 class Proyecto(models.Model):
     nombre = models.CharField(max_length=50)
     logline = models.CharField(max_length=1000)
     plot = models.CharField(max_length=5000)
     genero = models.CharField(max_length=50)
-    Autor = models.ForeignKey(autor, on_delete=models.CASCADE, default=1)
+    Autor = models.ForeignKey(Autor, on_delete=models.CASCADE, default=1)
 
     def __str__(self):
         return self.nombre

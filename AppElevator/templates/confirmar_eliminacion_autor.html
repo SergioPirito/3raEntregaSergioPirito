@@ -1,0 +1,20 @@
+<style>
+    form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+</style>
+
+{% extends 'page1.html' %}
+
+{% block contenidoQueCambia %}
+
+  <h2>¿Estás seguro de que quieres eliminar el este autor "{{ autor.id }}"?</h2>
+  <form method="POST">
+    {% csrf_token %}
+    <button type="submit">Sí, eliminar</button>
+  </form>
+    <a href="{% url 'AppElevator:eliminarAutor' autor.id %}">Eliminar Autor</a>
+  
+{% endblock contenidoQueCambia %}

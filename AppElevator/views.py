@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.core.paginator import Paginator
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib.auth.decorators import login_required
 from .models import Avatar
 from django.contrib import messages
 
@@ -11,7 +11,7 @@ from .forms import (
     ProyectoForm, AutorForm, ProductorForm, ProductoraForm,
     UserEditForm, AvatarFormulario
 )
-from .models import Proyecto, productora_audiovisual, autor, productor, Avatar
+from .models import Proyecto, productora_audiovisual, Autor, productor, Avatar
 from django.contrib import messages
 
 
@@ -31,11 +31,11 @@ def productora_view(request, nombre, pag_web, email, pais):
 <p> Productora: {productora.nombre}, pag_web {productora.pag_web}, email {productora.email}, pais {productora.pais} Agregado con Exito!</p>""")
 
 def autor_view(request, nombre, apellido, edad, email, pais):
-    Autor = autor(nombre=nombre, apellido=apellido, edad=edad, email=email, pais=pais)
-    Autor.save()
+    autor = Autor(nombre=nombre, apellido=apellido, edad=edad, email=email, pais=pais)
+    autor.save()
 
     return HttpResponse(f"""
-<p> Autor: {autor.nombre} {autor.apellido}, edad {autor.edad}, email {autor.email}, pais {autor.pais} Agregado con Exito!</p>""")
+<p> autor: {Autor.nombre} {Autor.apellido}, edad {Autor.edad}, email {Autor.email}, pais {Autor.pais} Agregado con Exito!</p>""")
 
 def productor_view(request, nombre, apellido, edad, email, pais):
     Productor = productor(nombre=nombre, apellido=apellido, edad=edad, email=email, pais=pais)
@@ -76,7 +76,7 @@ def lista_productora(request):
     return render(request, 'listas_productora.html', {"listas_productora": page_obj})
 
 def lista_autor(request):
-    listas_autor = autor.objects.all().order_by('nombre')
+    listas_autor = Autor.objects.all().order_by('nombre')
 
     paginator = Paginator(listas_autor, 3) # Muestra 3 autores por página
     page_number = request.GET.get('page')
@@ -175,41 +175,43 @@ def eliminar_proyecto(request, nombre):
         proyecto.delete()
         return redirect('AppElevator:lista_proyecto')
     
-    return render(request, 'confirmar_eliminacion.html', {'proyecto': proyecto})
+    return render(request, 'confirmar_eliminacion_proyecto.html', {'proyecto': proyecto})
 
 # Editar Eliminar Autor y Html details
 
 def autor_detalles(request, nombre):
-    autores = autor.objects.filter(nombre=nombre)
-    print(autores)
+    autor = Autor.objects.filter(nombre=nombre)
+    print(autor)
     # if not autores.exists():
     #     return render(request, 'autor_no_encontrado.html', {'nombre': nombre})
     
-    autorFound = autores.first()
+    autorFound = autor.first()
 
     return render(request, 'autor_detalles.html', {'Autor': autorFound})
 
 def editar_autor(request, nombre):
-    Autor = get_object_or_404(autor, nombre=nombre)
+    autor = get_object_or_404(Autor, nombre=nombre)
 
     if request.method == 'POST':
         form = AutorForm(request.POST, instance=autor)
         if form.is_valid():
             form.save()
-            return render(request, 'formulario_autor.html', {"mensaje": "Autor editado con éxito"})
+            return render(request, 'formulario_autores.html', {"mensaje": "Autor editado con éxito"})
     else:
         form = AutorForm(instance=autor)
 
-    return render(request, 'formulario_autor.html', {'form': form})
+    return render(request, 'formulario_autores.html', {'form': form})
+
 
 def eliminar_autor(request, nombre):
-    Autor = get_object_or_404( autor, nombre=nombre)
+    autor = get_object_or_404( Autor, nombre=nombre)
 
     if request.method == 'POST':
-        Autor.delete()
+        autor.delete()
         return redirect('AppElevator:lista_autor')
     
-    return render(request, 'confirmar_eliminacion.html', {'autor': Autor})
+    return render(request, 'confirmar_eliminacion_autor.html', {'autor': autor})
+
 
 
 
