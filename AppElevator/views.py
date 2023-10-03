@@ -11,7 +11,7 @@ from .forms import (
     ProyectoForm, AutorForm, ProductorForm, ProductoraForm,
     UserEditForm, AvatarFormulario
 )
-from .models import Proyecto, productora_audiovisual, Autor, productor, Avatar
+from .models import Proyecto, Productora_audiovisual, Autor, Productor, Avatar
 from django.contrib import messages
 
 
@@ -24,11 +24,11 @@ def proyecto_view(request, nombre, logline, plot, genero):
 <p> Proyecto: {proyecto.nombre}, logline {proyecto.logline}, plot {proyecto.plot}, genero {proyecto.genero} Agregado con Exito!</p>""")
 
 def productora_view(request, nombre, pag_web, email, pais):
-    productora = productora_audiovisual (nombre=nombre, pag_web=pag_web, email=email, pais=pais)
+    productora = Productora_audiovisual (nombre=nombre, pag_web=pag_web, email=email, pais=pais)
     productora.save()
 
     return HttpResponse(f"""
-<p> Productora: {productora.nombre}, pag_web {productora.pag_web}, email {productora.email}, pais {productora.pais} Agregado con Exito!</p>""")
+<p> productora: {Productora_audiovisual.nombre}, pag_web {Productora_audiovisual.pag_web}, email {Productora_audiovisual.email}, pais {Productora_audiovisual.pais} Agregado con Exito!</p>""")
 
 def autor_view(request, nombre, apellido, edad, email, pais):
     autor = Autor(nombre=nombre, apellido=apellido, edad=edad, email=email, pais=pais)
@@ -38,11 +38,11 @@ def autor_view(request, nombre, apellido, edad, email, pais):
 <p> autor: {Autor.nombre} {Autor.apellido}, edad {Autor.edad}, email {Autor.email}, pais {Autor.pais} Agregado con Exito!</p>""")
 
 def productor_view(request, nombre, apellido, edad, email, pais):
-    Productor = productor(nombre=nombre, apellido=apellido, edad=edad, email=email, pais=pais)
-    Productor.save()
+    productor = Productor(nombre=nombre, apellido=apellido, edad=edad, email=email, pais=pais)
+    productor.save()
 
     return HttpResponse(f"""
-<p> Productor: {productor.nombre} {productor.apellido}, edad {productor.edad}, email {productor.email}, pais {productor.pais} Agregado con Exito!</p>""")
+<p> Productor: {Productor.nombre} {Productor.apellido}, edad {Productor.edad}, email {Productor.email}, pais {Productor.pais} Agregado con Exito!</p>""")
 
 # Listas
 
@@ -56,7 +56,7 @@ def lista_proyecto(request):
     return render(request, 'listas_proyecto.html', {"listas_proyecto": page_obj})
 
 def lista_productor(request):
-    listas_productor = productor.objects.all().order_by('nombre')
+    listas_productor = Productor.objects.all().order_by('nombre')
 
     paginator = Paginator(listas_productor, 3) # Muestra 3 productores por página
     page_number = request.GET.get('page')
@@ -67,7 +67,7 @@ def lista_productor(request):
 
 
 def lista_productora(request):
-    listas_productora = productora_audiovisual.objects.all().order_by('nombre')
+    listas_productora = Productora_audiovisual.objects.all().order_by('nombre')
 
     paginator = Paginator(listas_productora, 3) # Muestra 3 productoras por página
     page_number = request.GET.get('page')
@@ -178,7 +178,6 @@ def eliminar_proyecto(request, nombre):
     return render(request, 'confirmar_eliminacion_proyecto.html', {'proyecto': proyecto})
 
 # Editar Eliminar Autor y Html details
-
 def autor_detalles(request, nombre):
     autor = Autor.objects.filter(nombre=nombre)
     print(autor)
@@ -212,8 +211,76 @@ def eliminar_autor(request, nombre):
     
     return render(request, 'confirmar_eliminacion_autor.html', {'autor': autor})
 
+# Editar Eliminar Productor y Html details
+
+def productor_detalles(request, nombre):
+    productor = Productor.objects.filter(nombre=nombre)
+    print(productor)
+    # if not productor.exists():
+    #     return render(request, 'productor_no_encontrado.html', {'nombre': nombre})
+    
+    autorFound = productor.first()
+
+    return render(request, 'productor_detalles.html', {'Productor': autorFound})
+
+def editar_productor(request, nombre):
+    productor = get_object_or_404 (Productor, nombre=nombre)
+
+    if request.method == 'POST':
+        form = AutorForm(request.POST, instance=productor)
+        if form.is_valid():
+            form.save()
+            return render(request, 'formulario_productores.html', {"mensaje": "Productor editado con éxito"})
+    else:
+        form = AutorForm(instance=productor)
+
+    return render(request, 'formulario_productores.html', {'form': form})
 
 
+def eliminar_productor(request, nombre):
+    productor = get_object_or_404( Productor, nombre=nombre)
+
+    if request.method == 'POST':
+        productor.delete()
+        return redirect('AppElevator:lista_productor')
+    
+    return render(request, 'confirmar_eliminacion_productor.html', {'productor': productor})
+
+
+# Editar Eliminar Productora_audiovisual y Html details
+
+def productora_detalles(request, nombre):
+    productora = Productora_audiovisual.objects.filter(nombre=nombre)
+    print(productora)
+    # if not productora.exists():
+    #     return render(request, 'productora_no_encontrado.html', {'nombre': nombre})
+    
+    autorFound = productora.first()
+
+    return render(request, 'productora_detalles.html', {'Productora': autorFound})
+
+def editar_productora(request, nombre):
+    productora = get_object_or_404 (Productora_audiovisual, nombre=nombre)
+
+    if request.method == 'POST':
+        form = AutorForm(request.POST, instance=productora)
+        if form.is_valid():
+            form.save()
+            return render(request, 'formulario_productoras.html', {"mensaje": "Productora editada con éxito"})
+    else:
+        form = AutorForm(instance=productora)
+
+    return render(request, 'formulario_productoras.html', {'form': form})
+
+
+def eliminar_productora(request, nombre):
+    productora = get_object_or_404( Productora_audiovisual, nombre=nombre)
+
+    if request.method == 'POST':
+        productora.delete()
+        return redirect('AppElevator:lista_productora')
+    
+    return render(request, 'confirmar_eliminacion_productora.html', {'productora': productora})
 
 #login
 

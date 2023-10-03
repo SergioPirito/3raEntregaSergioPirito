@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserChangeForm
 from django.contrib.auth.models import User
-from .models import Autor, productor, productora_audiovisual, Proyecto
+from .models import Autor, Productor, Productora_audiovisual, Proyecto
 from .models import Avatar
 
 class ProyectoForm(forms.ModelForm):
@@ -11,7 +11,7 @@ class ProyectoForm(forms.ModelForm):
 
 class ProductoraForm(forms.ModelForm):
     class Meta:
-        model = productora_audiovisual
+        model = Productora_audiovisual
         fields = ['nombre', 'pag_web', 'email', 'pais', 'Productor']
 
 class AutorForm(forms.ModelForm):
@@ -21,7 +21,7 @@ class AutorForm(forms.ModelForm):
 
 class ProductorForm(forms.ModelForm):
     class Meta:
-        model = productor
+        model = Productor
         fields = ['nombre', 'apellido', 'edad', 'email', 'pais']
 
 class UserEditForm (UserChangeForm):

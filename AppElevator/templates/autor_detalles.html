@@ -9,7 +9,6 @@
         <p class="card-text">Lugar de nacimiento: {{Autor.pais}}</p>              
     </div>    
         <div>
-             <a class="btn btn-danger" href="{% url 'AppElevator:formularioAutores' %}">alta de autor</a> 
              <a class="btn btn-warning" href="{% url 'AppElevator:editarAutor' Autor.nombre %}">Editar autor</a> 
              <a class="btn btn-danger" href="{% url 'AppElevator:eliminarAutor' Autor.nombre %}">Eliminar </a> 
            

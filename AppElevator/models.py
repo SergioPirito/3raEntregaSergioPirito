@@ -8,7 +8,6 @@ from django.contrib.auth.models import User
 
 # Modelo que representa a un Autor.
 
-
 class Autor(models.Model):
     nombre = models.CharField(max_length=30)
     apellido = models.CharField(max_length=50)
@@ -16,16 +15,13 @@ class Autor(models.Model):
     email = models.EmailField(max_length=254)
     pais = models.CharField(max_length=50)
 
-   
-
     def __str__(self):
         return f"{self.nombre} {self.apellido}"
     
-     
+ 
+# Modelo que representa a un Productor.
 
-
-# Modelo que representa a un productor.
-class productor (models.Model):
+class Productor (models.Model):
     nombre = models.CharField(max_length=30)
     apellido =  models.CharField(max_length=50)
     edad = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(100)])
@@ -35,22 +31,20 @@ class productor (models.Model):
     def __str__(self):
         return f"{self.nombre} {self.apellido}"
     
+# Modelo que representa a una Productora audiovisual
 
-
-# Modelo que representa a una productora audiovisual
-class productora_audiovisual (models.Model):
+class Productora_audiovisual (models.Model):
     nombre = models.CharField(max_length=30)
     pag_web =  models.CharField(max_length=50)
     email = models.EmailField(max_length=254)
     pais = models.CharField(max_length=50)
-    Productor =models.ManyToManyField (productor)
+    Productor =models.ManyToManyField (Productor)
 
     def __str__(self):
         return self.nombre
     
-  
-
 # Modelo que representa a un Proyecto.
+
 class Proyecto(models.Model):
     nombre = models.CharField(max_length=50)
     logline = models.CharField(max_length=1000)

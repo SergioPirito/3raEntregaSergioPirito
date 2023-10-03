@@ -1,0 +1,21 @@
+{% extends 'page1.html' %}
+
+{% block contenidoQueCambia %}
+<div style="text-align: center;">
+    <h1> Autor </h1>
+    <div class="card-body" style="width: 50%; margin: 0 auto; border: 1px solid #000; padding: 20px; border-radius: 10px;">
+        <h1 class="card-title">{{Productora.nombre}} {{Productora.apellido}}</h1> 
+        <p class="card-text">Web: {{Productora.pag_web}}</p>
+        <p class="card-text">Lugar de residencia: {{Productora.pais}}</p>              
+    </div>    
+        <div>
+             <a class="btn btn-danger" href="{% url 'AppElevator:formularioProductoras' %}">alta de Productora</a> 
+             <a class="btn btn-warning" href="{% url 'AppElevator:editarProductora' Productora.nombre %}">Editar Productora</a> 
+             <a class="btn btn-danger" href="{% url 'AppElevator:eliminarProductora' Productora.nombre %}">Eliminar </a> 
+           
+        </div>
+    </div>
+{% endblock contenidoQueCambia %}
+
+
+

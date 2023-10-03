@@ -1,0 +1,20 @@
+{% extends 'page1.html' %}
+
+{% block contenidoQueCambia %}
+<div style="text-align: center;">
+    <h1>Productor</h1>
+    <div class="card-body" style="width: 50%; margin: 0 auto; border: 1px solid #000; padding: 20px; border-radius: 10px;">
+        <h1 class="card-title">{{Productor.nombre}} {{Productor.apellido}}</h1> 
+        <p class="card-text">Web: {{Productor.pag_web}}</p>
+        <p class="card-text">Lugar de nacimiento: {{Productor.pais}}</p>              
+    </div>    
+        <div>
+             <a class="btn btn-warning" href="{% url 'AppElevator:editarProductor' Productor.nombre %}">Editar Productor</a> 
+             <a class="btn btn-danger" href="{% url 'AppElevator:eliminarProductor' Productor.nombre %}">Eliminar </a> 
+           
+        </div>
+    </div>
+{% endblock contenidoQueCambia %}
+
+
+

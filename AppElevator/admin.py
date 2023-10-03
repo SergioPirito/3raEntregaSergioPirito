@@ -1,8 +1,8 @@
 from django.contrib import admin
 from .models import Autor
-from .models import productora_audiovisual
+from .models import Productora_audiovisual
 from .models import Proyecto
-from .models import productor
+from .models import Productor
 
 class ProyectoAdmin (admin.ModelAdmin):
     list_display = ['nombre', 'Autor',]
@@ -14,5 +14,5 @@ class ProyectoAdmin (admin.ModelAdmin):
 # Register your models here.
 admin.site.register(Proyecto,ProyectoAdmin)
 admin.site.register(Autor)
-admin.site.register(productora_audiovisual)
-admin.site.register(productor)
+admin.site.register(Productora_audiovisual)
+admin.site.register(Productor)

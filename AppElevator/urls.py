@@ -1,12 +1,13 @@
-from atexit import register
 from django.urls import path
+from .views import editar_perfil, agregar_avatar, register, logout_view
 from .views import proyecto_view, productora_view, autor_view, productor_view
 from .views import lista_proyecto, lista_productor, lista_productora, lista_autor
-from .views import inicio, vista_proyecto, vista_productor, vista_productora, vista_autor, formulario_proyecto,formulario_autores, formulario_productores, formulario_productoras, proyecto_detalles
-from .views import editar_proyecto, eliminar_proyecto, autor_detalles, editar_autor, eliminar_autor, editar_perfil, agregar_avatar
+from .views import inicio, vista_proyecto, vista_productor, vista_productora, vista_autor
+from .views import formulario_proyecto,formulario_autores, formulario_productores, formulario_productoras
+from .views import proyecto_detalles, productor_detalles, productora_detalles,autor_detalles
+from .views import editar_proyecto, eliminar_proyecto, editar_autor, eliminar_autor
+from .views import editar_productor, eliminar_productor, editar_productora, eliminar_productora
 from django.contrib.auth.views import LogoutView
-from .views import *
-from . import views
 from .views import login_view
 
 app_name = 'AppElevator'
@@ -31,11 +32,17 @@ urlpatterns = [
     path('vista-proyecto/',vista_proyecto),
     
     # PRODUCTORES
+    path('productor-detalles/<nombre>/', productor_detalles),
+
     path('formulario-productores/',formulario_productores, name= 'formularioProductores'),
+    path('editar-productor/<nombre>/', editar_productor, name='editarProductor'),
+    path('eliminar-productor/<nombre>/', eliminar_productor, name='eliminarProductor'),
 
     # PRODUCTORA AUDIOVISUAL
-    
+    path('productora-detalles/<nombre>/', productora_detalles),
     path('formulario-productoras/',formulario_productoras, name= 'formularioProductoras'),
+    path('editar-productora/<nombre>/', editar_productora, name='editarProductora'),
+    path('eliminar-productora/<nombre>/', eliminar_productora, name='eliminarProductora'),
     
     # PROYECTO
     path('proyecto-detalles/<nombre>/', proyecto_detalles),
